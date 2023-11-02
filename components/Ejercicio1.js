@@ -25,75 +25,79 @@ const Ejercicio1 = () => {
           <View style={styles.modal_inter}>
             <Text style={styles.titulo}>Ingreso de datos del paciente</Text>
 
-            <Text>Nombre:</Text>
-            <TextInput
-              placeholder="Nombre"
-              value={nombre}
-              onChangeText={(text) => setNombre(text)} // Actualiza el estado del nombre
-            />
-            <Text>Apellido:</Text>
-            <TextInput
-              placeholder="Apellido"
-              value={apellido}
-              onChangeText={(text) => setApellido(text)} 
-            />
+            <View style={{ flexDirection: 'row', marginTop:20, }}>
 
-            <Text>Genero:</Text>
-            <TextInput
-              placeholder="Genero"
-              value={genero}
-              onChangeText={(text) => setGenero(text)} 
-            />
+              <View style={{ flex: 1 }}>
+                <Text>Nombre:</Text>
+                <TextInput
+                  placeholder="Nombre"
+                  value={nombre}
+                  onChangeText={(text) => setNombre(text)} // Actualiza el estado del nombre
+                />
+                <Text>Genero:</Text>
+                <TextInput
+                  placeholder="Genero"
+                  value={genero}
+                  onChangeText={(text) => setGenero(text)} 
+                />
+                <Text>NIT:</Text>
+                <TextInput
+                  placeholder="NIT"
+                  value={nit}
+                  onChangeText={(text) => setNit(text)} 
+                />
+                <Text>Fecha de nacimiento:</Text>
+                <TextInput
+                  placeholder="nacimiento"
+                  value={nacimiento}
+                  onChangeText={(text) => setNacimiento(text)} 
+                />
+                <Text>Telefono Fijo:</Text>
+                <TextInput
+                  placeholder="Telefono Fijo"
+                  value={casa}
+                  onChangeText={(text) => setCasa(text)} 
+                />
 
-            <Text>DUI:</Text>
-            <TextInput
-              placeholder="DUI"
-              value={dui}
-              onChangeText={(text) => setDui(text)} 
-            />
+              </View>
 
-            <Text>NIT:</Text>
-            <TextInput
-              placeholder="NIT"
-              value={nit}
-              onChangeText={(text) => setNit(text)} 
-            />
+              <View style={{ flex: 1,  }}>
+                <Text>Apellido:</Text>
+                <TextInput
+                  placeholder="Apellido"
+                  value={apellido}
+                  onChangeText={(text) => setApellido(text)} // Actualiza el estado del apellido
+                />
+                <Text>DUI:</Text>
+                <TextInput
+                  placeholder="DUI"
+                  value={dui}
+                  onChangeText={(text) => setDui(text)} 
+                />
+                <Text>Direccion:</Text>
+                <TextInput
+                  placeholder="Direccion"
+                  value={direccion}
+                  onChangeText={(text) => setDireccion(text)} 
+                />
 
-            <Text>Direccion:</Text>
-            <TextInput
-              placeholder="Direccion"
-              value={direccion}
-              onChangeText={(text) => setDireccion(text)} 
-            />
+                <Text>Correo Electronico:</Text>
+                <TextInput
+                  placeholder="Correo"
+                  value={correo}
+                  onChangeText={(text) => setCorreo(text)} // Actualiza el estado del correo
+                />
+                
+                <Text>Telefono Movil:</Text>
+                <TextInput
+                  placeholder="Telefono Movil"
+                  value={movil}
+                  onChangeText={(text) => setMovil(text)} 
+                />
+                
+              </View>
+            </View>
 
-            <Text>Fecha de nacimiento:</Text>
-            <TextInput
-              placeholder="nacimiento"
-              value={nacimiento}
-              onChangeText={(text) => setNacimiento(text)} 
-            />
-
-            <Text>Telefono Movil:</Text>
-            <TextInput
-              placeholder="Telefono Movil"
-              value={movil}
-              onChangeText={(text) => setMovil(text)} 
-            />
-
-            <Text>Telefono Fijo:</Text>
-            <TextInput
-              placeholder="Telefono Fijo"
-              value={casa}
-              onChangeText={(text) => setCasa(text)} 
-            />
-
-
-            <Text>Correo Electronico:</Text>
-            <TextInput
-              placeholder="Correo"
-              value={correo}
-              onChangeText={(text) => setCorreo(text)} // Actualiza el estado del correo
-            />
             <View style={{ flexDirection: 'row', marginTop: 40 }}>
               <TouchableOpacity
                 onPress={() => setOpenModal(false)}
@@ -114,8 +118,7 @@ const Ejercicio1 = () => {
               <TouchableOpacity
                 onPress={() => {
                   setOpenModal(false);
-                  // Aquí puedes hacer algo con los valores de nombre y correo,
-                  // como enviarlos a una API o almacenarlos en un estado global.
+                  // Realiza acciones con los valores de nombre y apellido si es necesario
                 }}
                 style={{
                   flex: 1,
@@ -196,7 +199,7 @@ modal_inter:{
     height:500,
     borderRadius:15,
     borderWidth: 1, 
-    borderColor: '#2c278d'
+    borderColor: '#2c278d',
 },
 Boton_touch:{
     marginTop:20, 
