@@ -4,6 +4,7 @@ import MaskInput from 'react-native-mask-input';
 
 const Ejercicio1 = () => {
   const [openModal, setOpenModal] = React.useState(false);
+  
   const [nombre, setNombre] = React.useState(''); 
   const [apellido, setApellido] = React.useState('');
   const [genero, setGenero] = React.useState(''); 
@@ -18,7 +19,7 @@ const Ejercicio1 = () => {
   //Para css
   const transparent = 'rgba(0,0,0.5)';
 
-  function modal_render(navigation) {
+  function modal_render() {    
     return (
       <Modal visible={openModal} animationType="slide" transparent={true}>
         <View style={styles.modal_1}>
@@ -52,12 +53,16 @@ const Ejercicio1 = () => {
                   value={nacimiento}
                   onChangeText={(text) => setNacimiento(text)} 
                 />
+
                 <Text>Telefono Fijo:</Text>
-                <TextInput
-                  placeholder="Telefono Fijo"
-                  value={casa}
-                  onChangeText={(text) => setCasa(text)} 
-                />
+                <MaskInput
+                    value={casa}
+                    onChangeText={(masked, unmasked) => {
+                      setCasa(masked);
+                    }}
+                    mask={[/[2]/, /\d/, /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/]}
+                    keyboardType='numeric'
+                  />
 
               </View>
 
@@ -69,11 +74,15 @@ const Ejercicio1 = () => {
                   onChangeText={(text) => setApellido(text)} // Actualiza el estado del apellido
                 />
                 <Text>DUI:</Text>
-                <TextInput
-                  placeholder="DUI"
+                <MaskInput
                   value={dui}
-                  onChangeText={(text) => setDui(text)} 
+                  onChangeText={(masked, unmasked) => {
+                    setDui(masked); // También puedes usar el valor sin máscara (unmasked)
+                  }}
+                  mask={[/\d/, /\d/ , /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,'-',/\d/]}
+                  keyboardType='numeric'
                 />
+                
                 <Text>Direccion:</Text>
                 <TextInput
                   placeholder="Direccion"
@@ -85,21 +94,19 @@ const Ejercicio1 = () => {
                 <TextInput
                   placeholder="Correo"
                   value={correo}
-                  onChangeText={(text) => setCorreo(text)} // Actualiza el estado del correo
+                  onChangeText={(text) => setCorreo(text)} 
                 />
 
                 <Text>Telefono Movil:</Text>
                 <MaskInput
-                  value={phone}
+                  value={movil}
                   onChangeText={(masked, unmasked) => {
-                    setPhone(masked); // you can use the unmasked value as well
-
-                    // assuming you typed "9" all the way:
-                    console.log(masked); // (99) 99999-9999
-                    console.log(unmasked); // 99999999999
+                    setMovil(masked); // También puedes usar el valor sin máscara (unmasked)
                   }}
-                  mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                  mask={[/[6-7]/, /\d/, /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/]}
+                  keyboardType='numeric'
                 />
+
                 
               </View>
             </View>
@@ -148,23 +155,28 @@ const Ejercicio1 = () => {
     <View style={styles.container}>
       <Text style={styles.titulo}>Clínica Dr. Amaya</Text>
       <TouchableOpacity
-  style={styles.Boton_touch}
-  onPress={() => {
-    setOpenModal(true);
-    setNombre('');
-    setCorreo('');
-  }}
->
+        style={styles.Boton_touch}
+        onPress={() => {
+          setOpenModal(true);
+        }}>
         <Text style={{ color: 'black', fontSize: 20 }}>Nuevo Paciente</Text>
       </TouchableOpacity>
       {modal_render()}
       {/* Mostrar los datos ingresados */}
-      {nombre !== '' && correo !== '' && (
-        <View>
-          <Text>Nombre: {nombre}</Text>
-          <Text>Correo: {correo}</Text>
-        </View>
-      )}
+      {nombre !== '' && apellido !== '' && (
+  <View>
+    <Text>Nombre: {nombre}</Text>
+    <Text>Apellido: {apellido}</Text>
+    <Text>Genero: {genero}</Text>
+    <Text>DUI: {dui}</Text>
+    <Text>NIT: {nit}</Text>
+    <Text>Direccion: {direccion}</Text>
+    <Text>Fecha de nacimiento: {nacimiento}</Text>
+    <Text>Telefono Movil: {movil}</Text>
+    <Text>Telefono Fijo: {casa}</Text>
+    <Text>Correo Electronico: {correo}</Text>
+  </View>
+)}
     </View>
   );
 };
