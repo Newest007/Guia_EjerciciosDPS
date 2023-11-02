@@ -1,6 +1,6 @@
 import React from 'react';
 import { View,Text, Modal, TouchableHighlight, TouchableOpacity, Image,  StyleSheet, TextInput} from "react-native";
-
+import MaskInput from 'react-native-mask-input';
 
 const Ejercicio1 = () => {
   const [openModal, setOpenModal] = React.useState(false);
@@ -87,12 +87,18 @@ const Ejercicio1 = () => {
                   value={correo}
                   onChangeText={(text) => setCorreo(text)} // Actualiza el estado del correo
                 />
-                
+
                 <Text>Telefono Movil:</Text>
-                <TextInput
-                  placeholder="Telefono Movil"
-                  value={movil}
-                  onChangeText={(text) => setMovil(text)} 
+                <MaskInput
+                  value={phone}
+                  onChangeText={(masked, unmasked) => {
+                    setPhone(masked); // you can use the unmasked value as well
+
+                    // assuming you typed "9" all the way:
+                    console.log(masked); // (99) 99999-9999
+                    console.log(unmasked); // 99999999999
+                  }}
+                  mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
                 />
                 
               </View>
