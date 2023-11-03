@@ -42,10 +42,13 @@ const Ejercicio1 = () => {
                   onChangeText={(text) => setGenero(text)} 
                 />
                 <Text>NIT:</Text>
-                <TextInput
-                  placeholder="NIT"
+                <MaskInput
                   value={nit}
-                  onChangeText={(text) => setNit(text)} 
+                  onChangeText={(masked, unmasked) => {
+                    setNit(masked); // También puedes usar el valor sin máscara (unmasked)
+                  }}
+                  mask={[ /\d/, /\d/ , /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/,/\d/,/\d/,'-', /\d/ , /\d/, /\d/,'-', /\d/]}
+                  keyboardType='numeric'
                 />
                 <Text>Fecha de nacimiento:</Text>
                 <TextInput
