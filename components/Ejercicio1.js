@@ -1,10 +1,24 @@
 import React from 'react';
-import { View,Text, Modal, TouchableHighlight, TouchableOpacity, Image,  StyleSheet, TextInput} from "react-native";
+import { View,Text, Modal, TouchableHighlight, TouchableOpacity, Image,  StyleSheet, TextInput, Button} from "react-native";
 import MaskInput from 'react-native-mask-input';
+import DropDownPicker from 'react-native-dropdown-picker';
+import DatePicker from 'react-native-date-picker'
+
 
 const Ejercicio1 = () => {
   const [openModal, setOpenModal] = React.useState(false);
-  
+  //Dropdown Picker
+  const [openPick, setOpenPick] = React.useState(false);
+  const [items, setItems] = React.useState([
+    {label: 'Masculino', value: 'Masculino'},
+    {label: 'Femenino', value: 'Femenino'}
+  ]);
+
+  //Date Picker
+  const [date, setDate] = React.useState(new Date())
+  const [open, setOpen] = React.useState(false)
+
+
   const [nombre, setNombre] = React.useState(''); 
   const [apellido, setApellido] = React.useState('');
   const [genero, setGenero] = React.useState(''); 
@@ -36,10 +50,15 @@ const Ejercicio1 = () => {
                   onChangeText={(text) => setNombre(text)} // Actualiza el estado del nombre
                 />
                 <Text>Genero:</Text>
-                <TextInput
+                <DropDownPicker
                   placeholder="Genero"
+                  open={openPick}
                   value={genero}
-                  onChangeText={(text) => setGenero(text)} 
+                  items={items}
+                  setOpen={setOpenPick}
+                  setValue={setGenero}
+                  setItems={setItems}
+                  style={styles.drop}
                 />
                 <Text>NIT:</Text>
                 <MaskInput
@@ -50,11 +69,18 @@ const Ejercicio1 = () => {
                   mask={[ /\d/, /\d/ , /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/,/\d/,/\d/,'-', /\d/ , /\d/, /\d/,'-', /\d/]}
                   keyboardType='numeric'
                 />
-                <Text>Fecha de nacimiento:</Text>
-                <TextInput
-                  placeholder="nacimiento"
-                  value={nacimiento}
-                  onChangeText={(text) => setNacimiento(text)} 
+                <Button title="Fecha Nacimiento" onPress={() => setOpen(true)} />
+                <DatePicker
+                  modal
+                  open={open}
+                  date={date}
+                  onConfirm={(date) => {
+                    setOpen(false)
+                    setDate(date)
+                  }}
+                  onCancel={() => {
+                    setOpen(false)
+                  }}
                 />
 
                 <Text>Telefono Fijo:</Text>
@@ -228,6 +254,13 @@ Boton_touch:{
     borderRadius:10, 
     padding:10
 },
+drop:{  
+  maxHeight:10,
+  maxWidth:125,
+  borderColor:'white',
+  marginLeft:-10,
+  marginTop:-4,
+}
 });
 
 export default Ejercicio1;
