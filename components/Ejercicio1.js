@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { View,Text, Modal, TouchableHighlight, TouchableOpacity, Image,  StyleSheet, TextInput, Button} from "react-native";
+import { View,Text, Modal, TouchableHighlight, TouchableOpacity, Image,  StyleSheet, TextInput, Alert} from "react-native";
 import MaskInput from 'react-native-mask-input';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -217,8 +217,23 @@ const Ejercicio1 = () => {
 
               <TouchableOpacity
                 onPress={() => {
-                  setOpenModal(false);
-                  // Realiza acciones con los valores de nombre y apellido si es necesario
+                  if (
+                    nombre === '' ||
+                    apellido === '' ||
+                    genero === '' ||
+                    dui === '' ||
+                    nit === '' ||
+                    direccion === '' ||
+                    date === null ||
+                    movil === '' ||
+                    casa === '' ||
+                    correo === ''
+                  ) {                    
+                    Alert.alert('Alerta', 'Debes completar todos los datos.');
+                  } else {
+                    setOpenModal(false);
+                    
+                  }
                 }}
                 style={{
                   flex: 1,
@@ -239,8 +254,9 @@ const Ejercicio1 = () => {
   }
 
   return (
+  
     <View style={styles.container}>
-      <Text style={styles.titulo}>Clínica Dr. Amaya</Text>
+      <Image style={styles.img} source={require('../src/logo.png')}/>
       <TouchableOpacity
         style={styles.Boton_touch}
         onPress={() => {
@@ -338,6 +354,10 @@ text: {
   fontSize: 16,
   marginBottom: 8,
 },
+img:{
+  height:100,
+  width:300,
+}
 });
 
 export default Ejercicio1;
