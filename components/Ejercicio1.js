@@ -1,34 +1,86 @@
-import React from 'react';
+import React from "react";
+import { useState } from "react";
 import { View,Text, Modal, TouchableHighlight, TouchableOpacity, Image,  StyleSheet, TextInput, Button} from "react-native";
 import MaskInput from 'react-native-mask-input';
 import DropDownPicker from 'react-native-dropdown-picker';
-import DatePicker from 'react-native-date-picker'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { differenceInYears } from 'date-fns';
 
 
 const Ejercicio1 = () => {
-  const [openModal, setOpenModal] = React.useState(false);
+  const [openModal, setOpenModal] = useState(false);
   //Dropdown Picker
-  const [openPick, setOpenPick] = React.useState(false);
-  const [items, setItems] = React.useState([
+  const [openPick, setOpenPick] = useState(false);
+  const [items, setItems] = useState([
     {label: 'Masculino', value: 'Masculino'},
     {label: 'Femenino', value: 'Femenino'}
   ]);
 
-  //Date Picker
-  const [date, setDate] = React.useState(new Date())
-  const [open, setOpen] = React.useState(false)
+  //Datepicker
+  const [date, setDate]=useState(new Date()); 
+  const [show, setShow]=useState(false);
+  const [mode, setMode]=useState('date');
 
+  //Calcular la Edad
+  const [edad, setEdad] = useState(0);
 
-  const [nombre, setNombre] = React.useState(''); 
-  const [apellido, setApellido] = React.useState('');
-  const [genero, setGenero] = React.useState(''); 
-  const [dui, setDui] = React.useState(''); 
-  const [nit, setNit] = React.useState(''); 
-  const [direccion, setDireccion] = React.useState(''); 
-  const [nacimiento, setNacimiento] = React.useState(''); 
-  const [movil, setMovil] = React.useState(''); 
-  const [casa, setCasa] = React.useState(''); 
-  const [correo, setCorreo] = React.useState(''); 
+  const calcularEdad = (fechaNacimiento) => {
+    const hoy = new Date();
+    return differenceInYears(hoy, fechaNacimiento);
+  };
+
+  const onChange = (event, selectedDate) => {
+    // Si el usuario selecciona una fecha
+    if (event.type === 'set') {
+      // Validar que la fecha seleccionada no sea mayor que el año actual
+      if (selectedDate.getFullYear() > 2023) {
+        // Puedes mostrar un mensaje de error, ignorar la selección o tomar alguna otra acción
+        alert('Por favor, seleccione una fecha válida.');
+      } else {
+        // La fecha es válida, puedes actualizar el estado
+        setDate(selectedDate);
+        // Calcular la edad y actualizar el estado
+        setEdad(calcularEdad(selectedDate));
+      }
+    }
+  
+    // Ocultar el selector de fecha
+    setShow(false);
+  };
+  
+
+  const showMode= (modeToShow)=>{
+    setShow(true);
+    setMode(modeToShow)
+  }
+
+  //Para calculo de Etapa segun la edad
+  const determinarEtapaVida = (edad) => {
+    if (edad >= 0 && edad <= 5) {
+      return "Primera infancia";
+    } else if (edad >= 6 && edad <= 11) {
+      return "Infancia";
+    } else if (edad >= 12 && edad <= 18) {
+      return "Adolescencia";
+    } else if (edad >= 19 && edad <= 26) {
+      return "Juventud";
+    } else if (edad >= 27 && edad <= 59) {
+      return "Adultez";
+    } else {
+      return "Persona mayor";
+    }
+  };
+  
+
+  const [nombre, setNombre] = useState(''); 
+  const [apellido, setApellido] = useState('');
+  const [genero, setGenero] = useState(''); 
+  const [dui, setDui] = useState(''); 
+  const [nit, setNit] = useState(''); 
+  const [direccion, setDireccion] = useState(''); 
+  const [movil, setMovil] = useState(''); 
+  const [casa, setCasa] = useState(''); 
+  const [correo, setCorreo] = useState(''); 
 
   //Para css
   const transparent = 'rgba(0,0,0.5)';
@@ -69,19 +121,25 @@ const Ejercicio1 = () => {
                   mask={[ /\d/, /\d/ , /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/,/\d/,/\d/,'-', /\d/ , /\d/, /\d/,'-', /\d/]}
                   keyboardType='numeric'
                 />
-                <Button title="Fecha Nacimiento" onPress={() => setOpen(true)} />
-                <DatePicker
-                  modal
-                  open={open}
-                  date={date}
-                  onConfirm={(date) => {
-                    setOpen(false)
-                    setDate(date)
-                  }}
-                  onCancel={() => {
-                    setOpen(false)
-                  }}
-                />
+
+                <TouchableOpacity
+                  style={styles.btn_date}
+                  onPress={() => showMode('date')}
+                >
+                  <Text style={{ color: 'black', fontSize:15}}>Fecha Nacimiento</Text>                  
+                </TouchableOpacity>  
+                {
+                  show &&(
+                    <DateTimePicker
+                    value={date}
+                    mode={mode}
+                    is24Hour={false}
+                    onChange={onChange}
+                    />
+                  )
+                }
+                <Text >{date.toLocaleDateString()}</Text>
+                
 
                 <Text>Telefono Fijo:</Text>
                 <MaskInput
@@ -193,18 +251,21 @@ const Ejercicio1 = () => {
       {modal_render()}
       {/* Mostrar los datos ingresados */}
       {nombre !== '' && apellido !== '' && (
-  <View>
-    <Text>Nombre: {nombre}</Text>
-    <Text>Apellido: {apellido}</Text>
-    <Text>Genero: {genero}</Text>
-    <Text>DUI: {dui}</Text>
-    <Text>NIT: {nit}</Text>
-    <Text>Direccion: {direccion}</Text>
-    <Text>Fecha de nacimiento: {nacimiento}</Text>
-    <Text>Telefono Movil: {movil}</Text>
-    <Text>Telefono Fijo: {casa}</Text>
-    <Text>Correo Electronico: {correo}</Text>
-  </View>
+  <View style={styles.container_info}>
+  <Text style={styles.text}>Nombre: {nombre}</Text>
+  <Text style={styles.text}>Apellido: {apellido}</Text>
+  <Text style={styles.text}>Genero: {genero}</Text>
+  <Text style={styles.text}>DUI: {dui}</Text>
+  <Text style={styles.text}>NIT: {nit}</Text>
+  <Text style={styles.text}>Direccion: {direccion}</Text>
+  <Text style={styles.text}>Fecha de Nacimiento: {date.toLocaleDateString()}</Text>
+  <Text style={styles.text}>Telefono Movil: {movil}</Text>
+  <Text style={styles.text}>Telefono Fijo: {casa}</Text>
+  <Text style={styles.text}>Correo Electronico: {correo}</Text>
+  <Text style={styles.text}>Edad: {edad} años</Text>
+  <Text style={styles.text}>Etapa de vida: {determinarEtapaVida(edad)}</Text>
+ 
+</View>
 )}
     </View>
   );
@@ -260,7 +321,23 @@ drop:{
   borderColor:'white',
   marginLeft:-10,
   marginTop:-4,
-}
+},
+btn_date:{
+  backgroundColor: '#7cabf7',  
+  borderRadius: 5,
+  height:30,
+  width:135,  
+},
+container_info: {
+  padding: 16,
+  backgroundColor: '#f4f4f4',
+  borderRadius: 8,
+  margin: 16,
+},
+text: {
+  fontSize: 16,
+  marginBottom: 8,
+},
 });
 
 export default Ejercicio1;
