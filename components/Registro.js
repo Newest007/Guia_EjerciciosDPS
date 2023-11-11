@@ -19,29 +19,35 @@ import { firebaseConfig } from '../firebase-config';
 //import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
-const Login=()=> {
-  const [correo, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Registro=()=> {
+    const [correo, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confPassword, setConfPassword] = useState("");
+    const navigation = useNavigation();
 
-  const navigation = useNavigation();
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-  const handleSignIn = () => {
-    signInWithEmailAndPassword(auth, correo, password)
-      .then((userCredential) => {
-        console.log('Signed In!')
-        const user = userCredential.user;
-        console.log(user)
-        //AsyncStorage.setItem('userEmail', correo);
-        navigation.navigate('Inicio')
 
-      })
-      .catch(error => {
-        console.log(error)
-        Alert.alert('Usuario no registrado')
-    })
-  }
+    const handleCreateAccount = () => {
+        if (password === confPassword) {
+            createUserWithEmailAndPassword(auth, correo, password)
+                .then((userCredential) => {
+                    console.log('Account created')
+                    const user = userCredential.user;
+                    console.log(user)
+                    Alert.alert('Usuario creado correctamente!');
+                    navigation.navigate('Inicio')
+                })
+                .catch(error => {
+                    console.log(error)
+                    Alert.alert(error.message)
+                })
+        }
+        else {
+            Alert.alert('Las contraseñas no coinciden')
+        }
+    };
 
   return (
     <View style={styles.container}>
@@ -54,25 +60,29 @@ const Login=()=> {
           onChangeText={(email) => setEmail(email)}
         /> 
       
-      
         <TextInput
           style={styles.TextInput}
-          placeholder="Password"
+          placeholder="Contraseña"
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />        
        
-      <TouchableOpacity onPress={handleSignIn} style={styles.loginBtn}>
-        <Text style={styles.loginText}>Iniciar Sesión</Text> 
-      </TouchableOpacity> 
-      <TouchableOpacity onPress={() => navigation.navigate('Registro')} style={styles.loginBtn}>
-        <Text style={styles.loginText}>Registrarme</Text>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Repite tu contraseña"
+          placeholderTextColor="#003f5c"
+          secureTextEntry={true}
+          onChangeText={(password) => setConfPassword(password)}
+        />        
+       
+      <TouchableOpacity onPress={handleCreateAccount} style={styles.loginBtn}>
+        <Text style={styles.loginText}>Registrarme</Text> 
       </TouchableOpacity> 
     </View> 
   );
 }
-export default Login;
+export default Registro;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
