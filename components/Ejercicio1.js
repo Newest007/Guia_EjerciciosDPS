@@ -82,6 +82,9 @@ const Ejercicio1 = () => {
   const [casa, setCasa] = useState(''); 
   const [correo, setCorreo] = useState(''); 
 
+  //Para resetear Campos
+  
+
   //Para css
   const transparent = 'rgba(0,0,0.5)';
 
