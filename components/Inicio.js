@@ -16,6 +16,10 @@ const Inicio = ({ navigation }) => {
         title="Ir al Ejercicio 3"
         onPress={() => navigation.navigate('Ejercicio3')}
       />
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate('Login')}
+      />
     </View>
   );
 };
