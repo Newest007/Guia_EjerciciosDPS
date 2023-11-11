@@ -270,21 +270,21 @@ const Ejercicio1 = () => {
       {modal_render()}
       {/* Mostrar los datos ingresados */}
       {nombre !== '' && apellido !== '' && (
-  <View style={styles.container_info}>
-  <Text style={styles.text}>Nombre: {nombre}</Text>
-  <Text style={styles.text}>Apellido: {apellido}</Text>
-  <Text style={styles.text}>Genero: {genero}</Text>
-  <Text style={styles.text}>DUI: {dui}</Text>
-  <Text style={styles.text}>NIT: {nit}</Text>
-  <Text style={styles.text}>Direccion: {direccion}</Text>
-  <Text style={styles.text}>Fecha de Nacimiento: {date.toLocaleDateString()}</Text>
-  <Text style={styles.text}>Telefono Movil: {movil}</Text>
-  <Text style={styles.text}>Telefono Fijo: {casa}</Text>
-  <Text style={styles.text}>Correo Electronico: {correo}</Text>
-  <Text style={styles.text}>Edad: {edad} años</Text>
-  <Text style={styles.text}>Etapa de vida: {determinarEtapaVida(edad)}</Text>
- 
-</View>
+      <View style={styles.container_info}>
+      <Text style={styles.text}>Nombre: {nombre}</Text>
+      <Text style={styles.text}>Apellido: {apellido}</Text>
+      <Text style={styles.text}>Genero: {genero}</Text>
+      <Text style={styles.text}>DUI: {dui}</Text>
+      <Text style={styles.text}>NIT: {nit}</Text>
+      <Text style={styles.text}>Direccion: {direccion}</Text>
+      <Text style={styles.text}>Fecha de Nacimiento: {date.toLocaleDateString()}</Text>
+      <Text style={styles.text}>Telefono Movil: {movil}</Text>
+      <Text style={styles.text}>Telefono Fijo: {casa}</Text>
+      <Text style={styles.text}>Correo Electronico: {correo}</Text>
+      <Text style={styles.text}>Edad: {edad} años</Text>
+      <Text style={styles.text}>Etapa de vida: {determinarEtapaVida(edad)}</Text>
+    
+    </View>
 )}
     </View>
   );
