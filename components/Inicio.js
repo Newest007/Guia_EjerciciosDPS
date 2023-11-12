@@ -17,7 +17,7 @@ const Inicio = ({ navigation }) => {
         title="Ir al Ejercicio 1"
         onPress={() => navigation.navigate('Ejercicio1')}
         buttonStyle={{
-          backgroundColor: '#3498db', // Puedes cambiar este color según tus preferencias
+          backgroundColor: '#3498db',
           width: 200,
           marginBottom: 20,
         }}
@@ -26,7 +26,7 @@ const Inicio = ({ navigation }) => {
         title="Ir al Ejercicio 2"
         onPress={() => navigation.navigate('Ejercicio2')}
         buttonStyle={{
-          backgroundColor: '#e74c3c', // Puedes cambiar este color según tus preferencias
+          backgroundColor: '#e74c3c',
           width: 200,
         }}
       />

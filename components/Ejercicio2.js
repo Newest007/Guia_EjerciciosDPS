@@ -51,7 +51,7 @@ const Ejercicio2 = () => {
           setResultado(data);
         })
         .catch(() => {
-          Alert.alert('No se existen datos para una ip privada')
+          Alert.alert('No existen datos para una ip privada')
           setResultado(null);
         });
       }

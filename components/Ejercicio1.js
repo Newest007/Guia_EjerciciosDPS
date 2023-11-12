@@ -30,21 +30,15 @@ const Ejercicio1 = () => {
   };
 
   const onChange = (event, selectedDate) => {
-    // Si el usuario selecciona una fecha
     if (event.type === 'set') {
-      // Validar que la fecha seleccionada no sea mayor que el año actual
-      if (selectedDate.getFullYear() > 2023) {
-        // Puedes mostrar un mensaje de error, ignorar la selección o tomar alguna otra acción
+      if (selectedDate.getFullYear() >= 2023) {
         alert('Por favor, seleccione una fecha válida.');
       } else {
-        // La fecha es válida, puedes actualizar el estado
         setDate(selectedDate);
-        // Calcular la edad y actualizar el estado
         setEdad(calcularEdad(selectedDate));
       }
     }
   
-    // Ocultar el selector de fecha
     setShow(false);
   };
   
@@ -82,9 +76,6 @@ const Ejercicio1 = () => {
   const [casa, setCasa] = useState(''); 
   const [correo, setCorreo] = useState(''); 
 
-  //Para resetear Campos
-  
-
   //Para css
   const transparent = 'rgba(0,0,0.5)';
 
@@ -102,7 +93,7 @@ const Ejercicio1 = () => {
                 <TextInput
                   placeholder="Nombre"
                   value={nombre}
-                  onChangeText={(text) => setNombre(text)} // Actualiza el estado del nombre
+                  onChangeText={(text) => setNombre(text)} 
                 />
                 <Text>Genero:</Text>
                 <DropDownPicker
@@ -119,7 +110,7 @@ const Ejercicio1 = () => {
                 <MaskInput
                   value={nit}
                   onChangeText={(masked, unmasked) => {
-                    setNit(masked); // También puedes usar el valor sin máscara (unmasked)
+                    setNit(masked); 
                   }}
                   mask={[ /\d/, /\d/ , /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/,/\d/,/\d/,'-', /\d/ , /\d/, /\d/,'-', /\d/]}
                   keyboardType='numeric'
@@ -161,13 +152,13 @@ const Ejercicio1 = () => {
                 <TextInput
                   placeholder="Apellido"
                   value={apellido}
-                  onChangeText={(text) => setApellido(text)} // Actualiza el estado del apellido
+                  onChangeText={(text) => setApellido(text)} 
                 />
                 <Text>DUI:</Text>
                 <MaskInput
                   value={dui}
                   onChangeText={(masked, unmasked) => {
-                    setDui(masked); // También puedes usar el valor sin máscara (unmasked)
+                    setDui(masked);
                   }}
                   mask={[/\d/, /\d/ , /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,'-',/\d/]}
                   keyboardType='numeric'
@@ -191,7 +182,7 @@ const Ejercicio1 = () => {
                 <MaskInput
                   value={movil}
                   onChangeText={(masked, unmasked) => {
-                    setMovil(masked); // También puedes usar el valor sin máscara (unmasked)
+                    setMovil(masked); 
                   }}
                   mask={[/[6-7]/, /\d/, /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/]}
                   keyboardType='numeric'
